@@ -1,4 +1,4 @@
-- **Generate ECC/RSA key pair**
+- ~~**Generate ECC/RSA key pair**~~
 - Connect to Ktor signaling server (signed message with pub key)
 - Send command to connect with another peer (target pub key)
 - Issue self-signed x509 certificate
