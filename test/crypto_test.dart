@@ -1,9 +1,8 @@
+import 'package:pointycastle/api.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:pointycastle/src/platform_check/platform_check.dart';
-import 'package:pointycastle/api.dart';
-import 'package:test/test.dart';
-
 import 'package:spychat/crypto.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Generate ECC key pair', () {
