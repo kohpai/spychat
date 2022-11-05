@@ -53,7 +53,7 @@ class KeyPemDisplay extends StatelessWidget {
     const storage = FlutterSecureStorage();
 
     return Future.wait(
-        [storage.read(key: 'public_key'), storage.read(key: 'private_key')])
+            [storage.read(key: 'public_key'), storage.read(key: 'private_key')])
         .then((pems) async {
       if (pems.any((pem) => pem == null)) {
         developer.log('Key(s) NOT found', name: 'me.kohpai.main');
@@ -79,14 +79,13 @@ class KeyPemDisplay extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      FutureBuilder<AsymmetricKeyPair>(
+  Widget build(BuildContext context) => FutureBuilder<AsymmetricKeyPair>(
         future: futureKeyPair,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final publicKey = snapshot.data!.publicKey as ECPublicKey;
             final privateKey = snapshot.data!.privateKey as ECPrivateKey;
-            return ListView(children: [
+            return Column(children: <Widget>[
               Text(CryptoUtils.encodeEcPublicKeyToPem(publicKey)),
               Text(CryptoUtils.encodeEcPrivateKeyToPem(privateKey))
             ]);
