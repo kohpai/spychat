@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class KeyPemDisplay extends StatelessWidget {
-  late final Future<AsymmetricKeyPair> futureKeyPair;
+  late final Future<AsymmetricKeyPair> _futureKeyPair;
 
   KeyPemDisplay({super.key}) {
-    futureKeyPair = getKeyPair();
+    _futureKeyPair = _getKeyPair();
   }
 
   //TODO: make this into a singleton for accessing the key pair
-  Future<AsymmetricKeyPair> getKeyPair() async {
+  Future<AsymmetricKeyPair> _getKeyPair() async {
     const storage = FlutterSecureStorage();
 
     return Future.wait(
@@ -43,7 +43,7 @@ class KeyPemDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FutureBuilder<AsymmetricKeyPair>(
-    future: futureKeyPair,
+    future: _futureKeyPair,
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         final publicKey = snapshot.data!.publicKey as ECPublicKey;
