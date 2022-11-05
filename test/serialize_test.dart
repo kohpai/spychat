@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:spychat/packet.dart';
+import 'package:spychat/signaling/packet.dart';
 import 'package:test/test.dart';
 
 void main() {
