@@ -3,14 +3,23 @@ import 'dart:developer' as developer;
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class KeyPairProvider {
-  static AsymmetricKeyPair? _keyPair;
+class Pair<T, U> {
+  final T first;
+  final U last;
 
-  static Future<AsymmetricKeyPair>
-      getKeyPair() async {
+  Pair(this.first, this.last);
+}
+
+class KeyPairProvider {
+  static Pair<String, ECPrivateKey>? _keyPair;
+
+  static Future<Pair<String, ECPrivateKey>> getKeyPair() async {
     if (_keyPair == null) {
       final keyPair = await _getKeyPair();
-      _keyPair = keyPair;
+      final publicKey = keyPair.publicKey as ECPublicKey;
+      final privateKey = keyPair.privateKey as ECPrivateKey;
+      final pubKeyPem = CryptoUtils.encodeEcPublicKeyToPem(publicKey);
+      _keyPair = Pair(pubKeyPem, privateKey);
     }
     return _keyPair!;
   }

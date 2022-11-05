@@ -3,28 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:spychat/signaling/kay_pair_provider.dart';
 
 class KeyPemDisplay extends StatelessWidget {
-  late final Future<AsymmetricKeyPair> _futureKeyPair;
+  late final Future<Pair<String, ECPrivateKey>> _futureKeyPair;
 
   KeyPemDisplay({super.key}) {
     _futureKeyPair = KeyPairProvider.getKeyPair();
   }
 
   @override
-  Widget build(BuildContext context) => FutureBuilder<AsymmetricKeyPair>(
-    future: _futureKeyPair,
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        final publicKey = snapshot.data!.publicKey as ECPublicKey;
-        final privateKey = snapshot.data!.privateKey as ECPrivateKey;
-        return Column(children: <Widget>[
-          Text(CryptoUtils.encodeEcPublicKeyToPem(publicKey)),
-          Text(CryptoUtils.encodeEcPrivateKeyToPem(privateKey))
-        ]);
-      } else if (snapshot.hasError) {
-        return Text('${snapshot.error}');
-      }
+  Widget build(BuildContext context) =>
+      FutureBuilder<Pair<String, ECPrivateKey>>(
+        future: _futureKeyPair,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(children: <Widget>[
+              Text(snapshot.data!.first),
+              Text(CryptoUtils.encodeEcPrivateKeyToPem(snapshot.data!.last))
+            ]);
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
 
-      return const CircularProgressIndicator();
-    },
-  );
+          return const CircularProgressIndicator();
+        },
+      );
 }
