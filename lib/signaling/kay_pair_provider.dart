@@ -32,7 +32,7 @@ class KeyPairProvider {
             [storage.read(key: 'public_key'), storage.read(key: 'private_key')])
         .then((pems) async {
       if (pems.any((pem) => pem == null)) {
-        developer.log('Key(s) NOT found', name: 'me.kohpai.main');
+        developer.log('Key(s) NOT found', name: 'me.kohpai.KeyPairProvider');
         final keyPair = CryptoUtils.generateEcKeyPair(curve: 'secp384r1');
         await Future.wait([
           storage.write(
@@ -47,7 +47,7 @@ class KeyPairProvider {
         return keyPair;
       }
 
-      developer.log('Keys FOUND', name: 'me.kohpai.main');
+      developer.log('Keys FOUND', name: 'me.kohpai.KeyPairProvider');
       final publicKey = CryptoUtils.ecPublicKeyFromPem(pems[0]!);
       final privateKey = CryptoUtils.ecPrivateKeyFromPem(pems[1]!);
       return AsymmetricKeyPair(publicKey, privateKey);
