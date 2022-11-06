@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Serialize Packet to JSON', () {
-    final now = DateTime.now();
+    final now = DateTime.now().toUtc();
     final nowStr = now.toIso8601String();
     const pubKey = "my_pub_key";
     const data = "my_data";
