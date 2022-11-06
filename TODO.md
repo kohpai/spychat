@@ -1,7 +1,7 @@
 - ~~Generate ECC/RSA key pair~~
-- Connect to Ktor signaling server (signed message with pub key)
+- ~~**Connect to Ktor signaling server (signed message with private key)**~~
 - Send command to connect with another peer (target pub key)
 - Issue self-signed x509 certificate
 - Generate CSR
 - Sign CSR and issue x509 certificate
-- ~~**Save key pair securely on device**~~
+- ~~Save key pair securely on device~~
