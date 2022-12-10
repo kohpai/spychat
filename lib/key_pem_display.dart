@@ -17,9 +17,9 @@ class KeyPemDisplay extends StatelessWidget {
           if (snapshot.hasData) {
             String pubKey = snapshot.data!.first;
             print(pubKey);
-            return Text(pubKey);
+            return SelectableText(pubKey);
           } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
+            return SelectableText('${snapshot.error}');
           }
 
           return const CircularProgressIndicator();
