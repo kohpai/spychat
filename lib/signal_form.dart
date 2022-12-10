@@ -21,46 +21,44 @@ class _SignalFormState extends State<SignalForm> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            controller: _textFieldController,
-            decoration: const InputDecoration(
-              hintText: "Enter peer's public key",
+  Widget build(BuildContext context) => Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            TextFormField(
+              controller: _textFieldController,
+              decoration: const InputDecoration(
+                hintText: "Enter peer's public key",
+              ),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
             ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Consumer<SignalingServerConnection>(
-                builder: (context, conn, child) {
-              return ElevatedButton(
-                onPressed: conn.isConnected()
-                    ? () async {
-                        if (_formKey.currentState!.validate()) {
-                          conn.getSink()!.add(await encapsulatePacket(
-                              _textFieldController.text, "test data"));
-                          _textFieldController.clear();
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Consumer<SignalingServerConnection>(
+                  builder: (context, conn, child) {
+                return ElevatedButton(
+                  onPressed: conn.isConnected()
+                      ? () async {
+                          if (_formKey.currentState!.validate()) {
+                            conn.getSink()!.add(await encapsulatePacket(
+                                _textFieldController.text, "test data"));
+                            _textFieldController.clear();
+                          }
                         }
-                      }
-                    : null,
-                child: const Text('Signal peer'),
-              );
-            }),
-          ),
-        ],
-      ),
-    );
-  }
+                      : null,
+                  child: const Text('Signal peer'),
+                );
+              }),
+            ),
+          ],
+        ),
+      );
 }

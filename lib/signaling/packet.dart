@@ -29,12 +29,10 @@ class Packet {
   Map<String, dynamic> toJson() => _$PacketToJson(this);
 
   @override
-  bool operator ==(Object other) {
-    if (other is! Packet) return false;
-
-    return other.cmd == cmd &&
-        other.pubKey == pubKey &&
-        other.data == data &&
-        other.signedAt == signedAt;
-  }
+  bool operator ==(Object other) => other is! Packet
+      ? false
+      : other.cmd == cmd &&
+          other.pubKey == pubKey &&
+          other.data == data &&
+          other.signedAt == signedAt;
 }
