@@ -43,20 +43,18 @@ class _SignalFormState extends State<SignalForm> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Consumer<SignalingServerConnection>(
-                  builder: (context, conn, child) {
-                return ElevatedButton(
-                  onPressed: conn.isConnected()
-                      ? () async {
-                          if (_formKey.currentState!.validate()) {
-                            conn.getSink()!.add(await encapsulatePacket(
-                                _textFieldController.text, "test data"));
-                            _textFieldController.clear();
-                          }
-                        }
-                      : null,
-                  child: const Text('Signal peer'),
-                );
-              }),
+                  builder: (context, conn, child) => ElevatedButton(
+                        onPressed: conn.isConnected()
+                            ? () async {
+                                if (_formKey.currentState!.validate()) {
+                                  conn.getSink()!.add(await encapsulatePacket(
+                                      _textFieldController.text, "test data"));
+                                  _textFieldController.clear();
+                                }
+                              }
+                            : null,
+                        child: const Text('Signal peer'),
+                      )),
             ),
           ],
         ),
