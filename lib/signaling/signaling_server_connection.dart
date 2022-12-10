@@ -29,5 +29,9 @@ class SignalingServerConnection extends ChangeNotifier {
     notifyListeners();
   }
 
+  WebSocketSink? getSink() {
+    return _channel?.sink;
+  }
+
   bool isConnected() => _channel != null;
 }
