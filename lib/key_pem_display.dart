@@ -15,10 +15,9 @@ class KeyPemDisplay extends StatelessWidget {
         future: _futureKeyPair,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Column(children: <Widget>[
-              Text(snapshot.data!.first),
-              Text(CryptoUtils.encodeEcPrivateKeyToPem(snapshot.data!.last))
-            ]);
+            String pubKey = snapshot.data!.first;
+            print(pubKey);
+            return Text(pubKey);
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
