@@ -49,7 +49,6 @@ class _SignalFormState extends State<SignalForm> {
                                 if (_formKey.currentState!.validate()) {
                                   conn.getSink()!.add(await encapsulatePacket(
                                       _textFieldController.text, "test data"));
-                                  print("sent from device");
                                   _textFieldController.clear();
                                 }
                               }
